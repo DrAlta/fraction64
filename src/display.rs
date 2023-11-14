@@ -51,9 +51,16 @@ impl fmt::Display for Fraction {
                     idx += 1;
                 }
     
-                write!(f, "{}", result)
+                write!(f, "{} ", result)
             } else {
-                write!(f, "ooops")
+                // Add the integer part to the result
+                let integer = numerator / denominator;
+                if integer != 0 {
+                    write!(f, "{integer} ")?;
+                };
+                let remainder = numerator / denominator;
+                
+                write!(f, "{remainder}/{denominator}", )
             }
         }
     }
