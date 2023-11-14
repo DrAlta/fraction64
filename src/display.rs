@@ -59,8 +59,8 @@ impl fmt::Display for Fraction {
                     write!(f, "{integer} ")?;
                 };
                 let remainder = numerator / denominator;
-                
-                write!(f, "{remainder}/{denominator}", )
+                let (n,d) = super::simplify(remainder, denominator);
+                write!(f, "{n}/{d}")
             }
         }
     }
