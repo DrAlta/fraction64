@@ -4,12 +4,14 @@ mod add;
 mod atan;
 mod atan2;
 mod consts;
+mod display;
 mod div;
 mod from;
 mod mul;
 mod neg;
 mod ord;
 mod partial_eq;
+mod rem;
 mod sub;
 use std::num::NonZeroU64;
 
@@ -31,6 +33,14 @@ impl Fraction {
     pub fn new(numer: u64, denom: NonZeroU64) -> Self {
         Self { sign: Sign::Positive, numer, denom }
     }
+
+    pub fn try_new(numer: u64, denom: u64) -> Option<Self> {
+        let Some(denom) = NonZeroU64::new(denom) else {
+            return None
+        };
+        Some(Self { sign: Sign::Positive, numer, denom })
+    }
+
     pub fn from<T: Into<Fraction>>(value:T) -> Self {
         value.into()
     }
