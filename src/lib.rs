@@ -49,13 +49,13 @@ impl Fraction {
 // Internal
 #[allow(dead_code)]
 impl Fraction {
-    fn simplify(&mut self) {
+    fn reduce(&mut self) {
         let gcd = gcd(self.numer, self.denom.get());
         self.numer /= gcd;
         self.denom = NonZeroU64::new(self.denom.get() / gcd).expect("fraction shouldn't reduce to zero");
     }
 
-    fn simplify_consuming(mut self) -> Self {
+    fn reduce_consuming(mut self) -> Self {
         let gcd = gcd(self.numer, self.denom.get());
         self.numer /= gcd;
         self.denom = NonZeroU64::new(self.denom.get() / gcd).expect("fraction shouldn't reduce to zero");
@@ -93,7 +93,7 @@ fn gcd<T: Clone + std::cmp::PartialEq<T> + From<u8> + std::ops::Rem<Output = T>>
     a
 }
 
-fn simplify<T: Clone + std::cmp::PartialEq<T> + From<u8> + std::ops::Rem<Output = T> + std::ops::Div<Output = T>>(numer: T, denom: T ) -> (T, T) {
+fn reduce<T: Clone + std::cmp::PartialEq<T> + From<u8> + std::ops::Rem<Output = T> + std::ops::Div<Output = T>>(numer: T, denom: T ) -> (T, T) {
     let gcd = gcd(numer.clone(), denom.clone());
     (
         numer / gcd.clone(),
@@ -103,7 +103,7 @@ fn simplify<T: Clone + std::cmp::PartialEq<T> + From<u8> + std::ops::Rem<Output 
 
 fn convert_fraction(mut numer: u128, mut denom: u128) -> (u64, u64) {
     // first simplify the fraction so the numer and denom as the smallist they can be.
-    (numer, denom) = simplify(numer, denom);
+    (numer, denom) = reduce(numer, denom);
         
     let max = numer.max(denom);
     let u64_max = u128::from(u64::MAX);

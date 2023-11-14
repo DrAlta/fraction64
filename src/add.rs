@@ -15,7 +15,7 @@ impl Add for Fraction {
                             self.numer as u128 + other.numer as u128,
                             self.denom.get() as u128
                         );
-                        return Self { sign: self.sign, numer, denom: NonZeroU64::new(denom).unwrap() }.simplify_consuming();
+                        return Self { sign: self.sign, numer, denom: NonZeroU64::new(denom).unwrap() }.reduce_consuming();
                     };
                     thing
                 },
@@ -57,7 +57,7 @@ impl Add for Fraction {
                 sign: self.sign,
                 numer: new_numer,
                 denom: self.denom,
-            }.simplify_consuming()
+            }.reduce_consuming()
         } else {
             // If denominators are different, find a common denominator
 
@@ -94,7 +94,7 @@ impl Add for Fraction {
                         sign: self.sign,
                         numer: new_numer,
                         denom: common_denom,
-                    }.simplify_consuming()
+                    }.reduce_consuming()
         
                 },
                 (_,_,_) => {
@@ -135,7 +135,7 @@ impl Add for Fraction {
                         sign: self.sign,
                         numer,
                         denom: NonZeroU64::new(denom).unwrap(),
-                    }.simplify_consuming()
+                    }.reduce_consuming()
         
                 }
             }

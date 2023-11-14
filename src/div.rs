@@ -18,7 +18,7 @@ impl Div for Fraction {
                     sign: new_sign,
                     numer,
                     denom: NonZeroU64::new(denom).unwrap(),
-                }.simplify_consuming();
+                }.reduce_consuming();
             },
             (_,_) => {
                 let (numer, denom) = super::convert_fraction(
@@ -29,7 +29,7 @@ impl Div for Fraction {
                     sign: new_sign,
                     numer,
                     denom: NonZeroU64::new(denom).unwrap(),
-                }.simplify_consuming();
+                }.reduce_consuming();
             }
         }
     }

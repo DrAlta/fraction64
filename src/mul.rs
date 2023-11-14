@@ -20,7 +20,7 @@ impl Mul for Fraction {
                     sign: new_sign,
                     numer,
                     denom,
-                }.simplify_consuming()
+                }.reduce_consuming()
             },
             (_,_) => {
                 let (numer, denom) = super::convert_fraction(self.numer as u128 * other.numer as u128, self.denom.get() as u128 * other.denom.get() as u128);
@@ -28,7 +28,7 @@ impl Mul for Fraction {
                     sign: new_sign,
                     numer,
                     denom: NonZeroU64::new(denom).unwrap(),
-                }.simplify_consuming()
+                }.reduce_consuming()
             },
         }
 
