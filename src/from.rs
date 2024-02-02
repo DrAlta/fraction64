@@ -71,3 +71,4 @@ impl From<i64> for Fraction {
         Self {sign, numer: item.abs() as u64, denom: NonZeroU64::new(1_u64).unwrap()}
     }
 }
+
