@@ -7,6 +7,7 @@ mod consts;
 mod display;
 mod div;
 mod from;
+mod into;
 mod mul;
 mod neg;
 mod ord;
