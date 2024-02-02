@@ -51,14 +51,14 @@ impl fmt::Display for Fraction {
                     idx += 1;
                 }
     
-                write!(f, "{} ", result)
+                write!(f, "{}", result)
             } else {
                 // Add the integer part to the result
                 let integer = numerator / denominator;
                 if integer != 0 {
                     write!(f, "{integer} ")?;
                 };
-                let remainder = numerator / denominator;
+                let remainder = numerator % denominator;
                 let (n,d) = super::reduce(remainder, denominator);
                 write!(f, "{n}/{d}")
             }
@@ -74,7 +74,7 @@ fn short_repeating_test() {
 
     println!("{}", fraction);
 
-    assert_eq!("0.45(98)", &format!("{fraction}"));
+    assert_eq!("0.45(98)", &format!("{fraction:.99}"));
 }
 
 
@@ -84,8 +84,8 @@ fn long_non_repeating_teat() {
         return
     };
 
-    println!("{:}", fraction);
-        assert_eq!("0.1234567890987", &format!("{fraction}"));
+    println!("{:.99}", fraction);
+        assert_eq!("0.1234567890987", &format!("{fraction:.99}"));
 
 }
 
@@ -95,7 +95,7 @@ fn long_repeating_teat() {
         return
     };
 
-    println!("{:}", fraction);
-        assert_eq!("0.(010309278350515463917525773195876288659793814432989690721649484536082474226804123711340206185567)", &format!("{fraction}"));
+    println!("{}", fraction);
+        assert_eq!("0.(010309278350515463917525773195876288659793814432989690721649484536082474226804123711340206185567)", &format!("{fraction:.99}"));
 
 }

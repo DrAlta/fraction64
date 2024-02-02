@@ -16,13 +16,13 @@ mod sub;
 use std::num::NonZeroU64;
 
 #[allow(dead_code)]
-#[derive(Debug, Clone, PartialEq, Eq)]
+#[derive(Debug, Clone, PartialEq, Eq, Hash)]
 pub enum Sign {
     Positive,
     Negative,
 }
 #[allow(dead_code)]
-#[derive(Debug, Clone, Eq)]
+#[derive(Debug, Clone, Eq, Hash)]
 pub struct Fraction {
     sign: Sign,
     numer: u64,
