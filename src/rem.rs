@@ -4,10 +4,10 @@ use crate::convert_fraction;
 
 use super::{Fraction, Sign};
 
-impl std::ops::Rem for Fraction {
+impl std::ops::Rem for &Fraction {
     type Output = Fraction;
 
-    fn rem(self, other: Self) -> Self {
+    fn rem(self, other: Self) -> Fraction {
         let self_denom_u128 = self.denom.get() as u128;
         let other_denom_u128 = other.denom.get() as u128;
 
@@ -24,7 +24,29 @@ impl std::ops::Rem for Fraction {
         } else {
             Sign::Negative
         };
-        Self { sign, numer, denom: NonZeroU64::new(denom).unwrap() }
+        Fraction { sign, numer, denom: NonZeroU64::new(denom).unwrap() }
 
+    }
+}
+
+impl std::ops::Rem for Fraction {
+    type Output = Fraction;
+
+    fn rem(self, other: Self) -> Self {
+        &self % &other
+    }
+}
+impl std::ops::Rem<&Fraction> for Fraction {
+    type Output = Fraction;
+
+    fn rem(self, other: &Fraction) -> Self {
+        &self % other
+    }
+}
+impl std::ops::Rem<Fraction> for &Fraction {
+    type Output = Fraction;
+
+    fn rem(self, other: Fraction) -> Fraction {
+        self % &other
     }
 }

@@ -2,8 +2,8 @@ use std::ops::Sub;
 
 use super::{Fraction, Sign};
 
-impl Sub for Fraction {
-    type Output = Self;
+impl Sub for &Fraction {
+    type Output = Fraction;
 
     fn sub(self, other: Self) -> Self::Output {
         // To subtract fractions, negate the second fraction and add it
@@ -17,5 +17,26 @@ impl Sub for Fraction {
         };
 
         self + neg_other
+    }
+}
+impl Sub for Fraction {
+    type Output = Fraction;
+
+    fn sub(self, other: Self) -> Self::Output {
+        &self - &other
+    }
+}
+impl Sub<&Fraction> for Fraction {
+    type Output = Fraction;
+
+    fn sub(self, other: &Fraction) -> Self::Output {
+        &self - other
+    }
+}
+impl Sub<Fraction> for &Fraction {
+    type Output = Fraction;
+
+    fn sub(self, other: Fraction) -> Self::Output {
+        self - &other
     }
 }

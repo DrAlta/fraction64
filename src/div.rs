@@ -1,11 +1,11 @@
 use std::{ops::Div, num::NonZeroU64};
 use super::{Sign, Fraction};
 
-impl Div for Fraction {
-    type Output = Self;
+impl Div for &Fraction {
+    type Output = Fraction;
 
     fn div(self, other: Self) -> Self::Output {
-        let new_sign = match (self.sign, other.sign) {
+        let new_sign = match (self.sign.clone(), other.sign.clone()) {
             (Sign::Positive, Sign::Positive) | (Sign::Negative, Sign::Negative) => Sign::Positive,
             _ => Sign::Negative,
         };
@@ -32,5 +32,27 @@ impl Div for Fraction {
                 }.reduce_consuming();
             }
         }
+    }
+}
+
+impl Div for Fraction {
+    type Output = Fraction;
+    
+    fn div(self, rhs: Self) -> Self::Output {
+         &self / &rhs
+    }
+}
+impl Div<&Fraction> for Fraction {
+    type Output = Fraction;
+    
+    fn div(self, rhs: &Fraction) -> Self::Output {
+         &self / rhs
+    }
+}
+impl Div<Fraction> for &Fraction {
+    type Output = Fraction;
+    
+    fn div(self, rhs: Fraction) -> Self::Output {
+         self / &rhs
     }
 }

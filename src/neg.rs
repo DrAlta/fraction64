@@ -1,9 +1,9 @@
 use super::{Fraction, Sign};
-impl std::ops::Neg for Fraction {
+impl std::ops::Neg for &Fraction {
     type Output = Fraction;
 
     fn neg(self) -> Self::Output {
-        Self {
+        Fraction {
             sign: match self.sign {
                 Sign::Positive => Sign::Negative,
                 Sign::Negative => Sign::Positive,
@@ -11,5 +11,12 @@ impl std::ops::Neg for Fraction {
             numer: self.numer,
             denom: self.denom,
         }
+    }
+}
+impl std::ops::Neg for Fraction {
+    type Output = Fraction;
+
+    fn neg(self) -> Self::Output {
+        -&self
     }
 }
