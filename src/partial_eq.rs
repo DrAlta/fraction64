@@ -11,7 +11,21 @@ impl PartialEq for Fraction {
                 }
             }
         } else {
-            false
+            self.numer == 0 && other.numer == 0
         }
+    }
+}
+
+
+#[cfg(test)]
+mod tests {
+    use std::num::NonZeroU64;
+
+    use crate::Fraction;
+    #[test]
+    fn zeros() {
+        let pos = Fraction { sign: crate::Sign::Positive, numer: 0, denom: NonZeroU64::new(1).unwrap() };
+        let neg = Fraction { sign: crate::Sign::Negative, numer: 0, denom: NonZeroU64::new(1).unwrap() };
+        assert_eq!(pos, neg)
     }
 }
