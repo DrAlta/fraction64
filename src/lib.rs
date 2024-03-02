@@ -66,6 +66,18 @@ impl Fraction {
 }
 
 impl Fraction {
+    pub fn is_negative(&self) -> bool {
+        match self.sign {
+            Sign::Positive => false,
+            Sign::Negative => true,
+        }
+    }
+    pub fn is_positive(&self) -> bool {
+        match self.sign {
+            Sign::Positive => true,
+            Sign::Negative => false,
+        }
+    }
     pub fn to_f32(&self) -> f32 {
         let sign_multiplier = match self.sign {
             Sign::Positive => 1.0,
