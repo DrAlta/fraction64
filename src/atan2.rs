@@ -7,12 +7,12 @@ use std::num::NonZeroU64;
 use super::Fraction;
 
 impl Fraction {
-    pub fn atan2(self, x: Self) -> Self {
+    pub fn atan2(&self, x: &Self) -> Self {
         let frac_pi_2: Fraction = Fraction::new(573204_u64, NonZeroU64::new(364913_u64).unwrap());
         let pi: Fraction = Fraction::new(11_146_408_u64, NonZeroU64::new(364913_u64).unwrap());
         let y = self;
      
-        match(x >= Self::ZERO, y >= Self::ZERO, y < x) {
+        match(x >= &Self::ZERO, y >= &Self::ZERO, y < x) {
             (true, true, true) => {
                 (x / y).atan()
             },
