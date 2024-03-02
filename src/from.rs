@@ -26,7 +26,7 @@ impl From<u64> for Fraction {
 impl From<(i64, u64)> for Fraction {
     fn from(item: (i64, u64)) -> Self {
         let Some(denom) = NonZeroU64::new(item.1) else {
-            // any amoutntht of zeroth in zero;
+            // any amount of zeroths in zero;
             return Self::ZERO
         };
         let sign = if item.0.is_positive(){
