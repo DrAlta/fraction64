@@ -69,12 +69,12 @@ impl Fraction {
     pub fn is_negative(&self) -> bool {
         match self.sign {
             Sign::Positive => false,
-            Sign::Negative => true,
+            Sign::Negative => !(self == &Self::ZERO),
         }
     }
     pub fn is_positive(&self) -> bool {
         match self.sign {
-            Sign::Positive => true,
+            Sign::Positive => !(self == &Self::ZERO),
             Sign::Negative => false,
         }
     }
