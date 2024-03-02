@@ -9,11 +9,6 @@ impl Into<f32> for &Fraction {
         }
     }
 }
-impl Into<f32> for Fraction {
-    fn into(self) -> f32 {
-        (&self).into()
-    }
-}
 
 
 impl Into<f64> for &Fraction {
@@ -23,10 +18,5 @@ impl Into<f64> for &Fraction {
             crate::Sign::Positive => x,
             crate::Sign::Negative => -x,
         }
-    }
-}
-impl Into<f64> for Fraction {
-    fn into(self) -> f64 {
-    (&self).into()
     }
 }
