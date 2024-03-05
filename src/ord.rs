@@ -4,8 +4,20 @@ use super::{Fraction, Sign};
 
 impl Ord for Fraction {
     fn cmp(&self, other: &Self) -> Ordering {
-        if self.sign != other.sign {
-            return match (&self.sign, &other.sign) {
+        // if it's zero lets say it's positive
+        let a = if self.numer == 0 {
+            &Sign::Positive
+        } else{
+            &self.sign
+        };
+        let b = if other.numer == 0 {
+            &Sign::Positive
+        } else {
+            &other.sign
+        };
+
+        if a != b {
+            return match (a, b) {
                 (Sign::Positive, Sign::Negative) => Ordering::Greater,
                 (Sign::Negative, Sign::Positive) => Ordering::Less,
                 _ => unreachable!(), // Should not happen if fractions are reduced

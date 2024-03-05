@@ -14,10 +14,13 @@ impl Div for &Fraction {
             self.denom.get().checked_mul(other.numer)
         ) {
             (Some(numer), Some(denom)) => {
+                let Some(denom) = NonZeroU64::new(denom) else {
+                    panic!("n:{numer} d:{denom:?}");
+                };
                 return Fraction {
                     sign: new_sign,
                     numer,
-                    denom: NonZeroU64::new(denom).unwrap(),
+                    denom,
                 }.reduce_consuming();
             },
             (_,_) => {

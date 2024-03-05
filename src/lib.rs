@@ -13,6 +13,7 @@ mod neg;
 mod ord;
 mod partial_eq;
 mod rem;
+mod sqrt;
 mod sub;
 use std::num::NonZeroU64;
 mod try_from;
@@ -32,8 +33,11 @@ pub struct Fraction {
 }
 /// Creation 
 impl Fraction {
-    pub fn new(numer: u64, denom: NonZeroU64) -> Self {
+    pub const fn new(numer: u64, denom: NonZeroU64) -> Self {
         Self { sign: Sign::Positive, numer, denom }
+    }
+    pub const fn new_neg(numer: u64, denom: NonZeroU64) -> Self {
+        Self { sign: Sign::Negative, numer, denom }
     }
 
     pub fn try_new(numer: u64, denom: u64) -> Option<Self> {
@@ -66,13 +70,13 @@ impl Fraction {
 }
 
 impl Fraction {
-    pub fn is_negative(&self) -> bool {
+    pub fn is_sign_negative(&self) -> bool {
         match self.sign {
             Sign::Positive => false,
             Sign::Negative => !(self == &Self::ZERO),
         }
     }
-    pub fn is_positive(&self) -> bool {
+    pub fn is_sign_positive(&self) -> bool {
         match self.sign {
             Sign::Positive => !(self == &Self::ZERO),
             Sign::Negative => false,
@@ -99,6 +103,10 @@ impl Fraction {
 
 fn gcd<T: Clone + std::cmp::PartialEq<T> + From<u8> + std::ops::Rem<Output = T>>(mut a: T, mut b: T) -> T {
     let zero: T = 0_u8.into();
+    // we could try to find the GCD of 0 so just return 1
+    if a == zero {
+        return 1_u8.into()
+    }
     while b != zero {
         let temp = b.clone();
         b = a % b;
@@ -122,13 +130,17 @@ fn convert_fraction(mut numer: u128, mut denom: u128) -> (u64, u64) {
     let max = numer.max(denom);
     let u64_max = u128::from(u64::MAX);
     if max > u64_max {
-        let ratio = max / u64_max;
+        // find the value that when we multiply `max` with get `u64_max`
+        // have is as a minium of 2 so that  wenever leave it alone
+        let ratio = (max / u64_max).max(2);
 
         
-        let numer64 = (numer * ratio) as u64;
-        let denom64 = (denom * ratio) as u64;
-        return (numer64, denom64);
+        let numer64 = (numer / ratio) as u64;
+        let denom64 = ((denom / ratio) as u64)
+            // round the denom up to 1 if it was below `ratio`
+        .max(1);
+        (numer64, denom64)
     } else {
-         return (numer as u64, denom as u64);
+         (numer as u64, denom as u64)
     }
 }
