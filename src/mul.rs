@@ -56,3 +56,16 @@ impl Mul<Fraction> for &Fraction {
         self * &other
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::Fraction;
+    #[test]
+    fn two_times_two() {
+        assert_eq!( Fraction::TWO * Fraction::TWO, Fraction::FOUR)
+    }
+    #[test]
+    fn two_tirds_times_three() {
+        assert_eq!( Fraction::TWO_THIRDS * Fraction::THREE, Fraction::TWO)
+    }
+}

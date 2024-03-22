@@ -12,3 +12,16 @@ impl Fraction {
         Self::FRAC_PI_4 * x.clone() - x.clone() * (x.clone().abs() - Self::ONE) * (Self::new(2447_u64, NonZeroU64::new(10000_u64).unwrap()) + Self::new(663_u64, NonZeroU64::new(10000_u64).unwrap()) * x.abs())
     }
 }
+
+/*
+#[cfg(test)]
+mod tests {
+    use super::Fraction;
+    #[test]
+    fn atan_half() {
+        let fix16 = format!("{:0.9}",Fraction::HALF.atan());
+        let f64 = format!("{:0.9}",0.5_f64.atan());
+        assert_eq!(fix16, f64);
+    }
+}
+*/
