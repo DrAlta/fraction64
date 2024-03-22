@@ -2,14 +2,11 @@
 //! https://nghiaho.com/?p=997 which is based on 
 //! “Efficient approximations for the arctangent function”, 
 //! Rajan, S. Sichun Wang Inkol, R. Joyal, A., May 2006
-use std::num::NonZeroU64;
 
 use super::Fraction;
 
 impl Fraction {
     pub fn atan2(&self, x: &Self) -> Self {
-        let frac_pi_2: Fraction = Fraction::new(573204_u64, NonZeroU64::new(364913_u64).unwrap());
-        let pi: Fraction = Fraction::new(11_146_408_u64, NonZeroU64::new(364913_u64).unwrap());
         let y = self;
      
         match(x >= &Self::ZERO, y >= &Self::ZERO, y < x) {
@@ -17,25 +14,25 @@ impl Fraction {
                 (x / y).atan()
             },
             (true, true, false) => {
-                frac_pi_2 - (x /y).atan()
+                Self::FRAC_PI_2 - (x /y).atan()
             },
             (true, false, true) => {
                 (y / x).atan()
             },
             (true, false, false) => {
-                -frac_pi_2 - (x /y).atan()
+                -Self::FRAC_PI_2 - (x /y).atan()
             },
             (false, true, true) => {
-                (y / x).atan() + pi
+                (y / x).atan() + Self::PI
             },
             (false, true, false) => {
-                frac_pi_2 - (x / y).atan()
+                Self::FRAC_PI_2 - (x / y).atan()
             },
             (false, false, true) => {
-                (y / x).atan() - pi
+                (y / x).atan() - Self::PI
             },
             (false, false, false) => {
-                -frac_pi_2 - (x / y).atan()
+                -Self::FRAC_PI_2 - (x / y).atan()
             },
         }
     }
