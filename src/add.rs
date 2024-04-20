@@ -1,12 +1,14 @@
 use std::{ops::Add, num::NonZeroU64};
 
+use qol::logy;
+
 use super::{Sign, Fraction, convert_fraction};
 ////////////////////////////////////////////////////
 impl Add for &Fraction {
     type Output = Fraction;
     fn add(self, other: Self) -> Self::Output {
         if self.denom == other.denom {
-            println!("[{}]denom's the same", line!());
+            logy!("debug", "[{}]denom's the same");
             // If denominators are the same, just add numerators
             let (new_sign, new_numer) = match (&self.sign, &other.sign) {
                 (Sign::Positive, Sign::Positive) => {
@@ -37,7 +39,7 @@ impl Add for &Fraction {
                     // 1o >= 3s
                     // else 3s - 1o = 2 ->-2
                     if other.numer >= self.numer {
-                        println!("[{}]other number{} >= self.number{}", line!(), other.numer, self.numer);
+                        logy!("debug", "other number{} >= self.number{}", other.numer, self.numer);
                         (Sign::Positive, other.numer - self.numer)
                     } else {
                         (Sign::Negative, self.numer - other.numer)
@@ -111,10 +113,10 @@ impl Add for &Fraction {
                         }
                         (Sign::Negative, Sign::Positive) => {
                             if new_numer_other >= new_numer_self {
-                                println!("new_num_other >= new_num_self");
+                                logy!("debug", "new_num_other >= new_num_self");
                                 new_numer_other - new_numer_self
                             } else {
-                                println!("not (new_num_other >= new_num_self)");
+                                logy!("debug", "not (new_num_other >= new_num_self)");
                                 let (numer, denom)= convert_fraction(new_numer_self - new_numer_other, common_denom);
                                 return Fraction {
                                     sign: Sign::Negative,
@@ -142,7 +144,7 @@ impl Add for &Fraction {
 /*
     fn add(self, other: Self) -> Self::Output {
         if self.denom == other.denom {
-            println!("denom's the same");
+            logy!("debug", "denom's the same");
             // If denominators are the same, just add numerators
             let new_numer = match (&self.sign, &other.sign) {
                 (Sign::Positive, Sign::Positive) => {
@@ -253,10 +255,10 @@ impl Add for &Fraction {
                         }
                         (Sign::Negative, Sign::Positive) => {
                             if new_numer_other >= new_numer_self {
-                                println!("new_num_other >= new_num_self");
+                                logy!("debug", "new_num_other >= new_num_self");
                                 new_numer_other - new_numer_self
                             } else {
-                                println!("not (new_num_other >= new_num_self)");
+                                logy!("debug", "not (new_num_other >= new_num_self)");
                                 let (numer, denom)= convert_fraction(new_numer_self - new_numer_other, common_denom);
                                 return Fraction {
                                     sign: Sign::Negative,

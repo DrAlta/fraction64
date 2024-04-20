@@ -1,5 +1,6 @@
 use std::fmt;
 
+
 use super::{Fraction, Sign};
 
 impl fmt::Display for Fraction {
@@ -65,37 +66,43 @@ impl fmt::Display for Fraction {
         }
     }
 }
+#[cfg(test)]
+mod tests {
+    use qol::logy;
 
-#[test]
-fn short_repeating_test() {
-    let Some(fraction) = Fraction::try_new(4553, 9900) else {
-        return
-    };
-
-    println!("{}", fraction);
-
-    assert_eq!("0.45(98)", &format!("{fraction:.99}"));
-}
-
-
-#[test]
-fn long_non_repeating_teat() {
-    let Some(fraction) = Fraction::try_new(1234567890987, 10000000000000) else {
-        return
-    };
-
-    println!("{:.99}", fraction);
-        assert_eq!("0.1234567890987", &format!("{fraction:.99}"));
-
-}
+    use crate::Fraction;
 
     #[test]
-fn long_repeating_teat() {
-    let Some(fraction) = Fraction::try_new(1, 97) else {
-        return
-    };
+    fn short_repeating_test() {
+        let Some(fraction) = Fraction::try_new(4553, 9900) else {
+            return
+        };
 
-    println!("{}", fraction);
-        assert_eq!("0.(010309278350515463917525773195876288659793814432989690721649484536082474226804123711340206185567)", &format!("{fraction:.99}"));
+        logy!("debug", "{}", fraction);
 
+        assert_eq!("0.45(98)", &format!("{fraction:.99}"));
+    }
+
+
+    #[test]
+    fn long_non_repeating_teat() {
+        let Some(fraction) = Fraction::try_new(1234567890987, 10000000000000) else {
+            return
+        };
+
+        logy!("debug", "{:.99}", fraction);
+            assert_eq!("0.1234567890987", &format!("{fraction:.99}"));
+
+    }
+
+        #[test]
+    fn long_repeating_teat() {
+        let Some(fraction) = Fraction::try_new(1, 97) else {
+            return
+        };
+
+        logy!("debug", "{}", fraction);
+            assert_eq!("0.(010309278350515463917525773195876288659793814432989690721649484536082474226804123711340206185567)", &format!("{fraction:.99}"));
+
+    }
 }

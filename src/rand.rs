@@ -26,7 +26,7 @@ impl RandStuff for ThreadRng {
     fn between(&mut self, start: &Coord, end: &Coord) -> Coord {
         let a = self.gen_fraction();
         let b = Fraction::one() - a;
-        println!("a: {a:.9}\nb: {b:.9}");
+        logy!("debug", "a: {a:.9}\nb: {b:.9}");
         let new_start = start.clone() * a;
         let new_end = end.clone() * b;
         new_start + new_end

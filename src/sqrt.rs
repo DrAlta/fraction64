@@ -42,7 +42,7 @@ impl Fraction {
                 return guess.reduce_consuming()
             };
             guess = thing;
-            //println!("{}/{}={}", guess.numer, guess.denom, guess.numer as f64 / guess.denom as f64);
+            //logy!("debug", "{}/{}={}", guess.numer, guess.denom, guess.numer as f64 / guess.denom as f64);
         }
         guess.reduce_consuming()
     }
