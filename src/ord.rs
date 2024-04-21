@@ -46,6 +46,8 @@ impl PartialOrd for Fraction {
         Some(self.cmp(other))
     }
 }
+
+
 #[cfg(test)]
 mod tests {
     use std::cmp::Ordering;

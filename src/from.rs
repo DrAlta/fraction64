@@ -1,6 +1,6 @@
 use std::num::NonZeroU64;
 
-use super::{Fraction, Sign};
+use crate::{Fraction, Sign};
 ///////
 /// unsigned intergers
 impl From<u8> for Fraction {
@@ -88,3 +88,98 @@ impl From<i64> for Fraction {
     }
 }
 
+
+#[cfg(test)]
+mod tests {
+    use std::num::NonZeroU64;
+
+    use crate::Fraction;
+    #[test]
+    fn three_u8_test() {
+        assert_eq!(
+            Into::<Fraction>::into(3_u8),
+            Fraction::new(3, NonZeroU64::new(1_u64).unwrap())
+        )
+    }
+    #[test]
+    fn three_u16_test() {
+        assert_eq!(
+            Into::<Fraction>::into(3_u16),
+            Fraction::new(3, NonZeroU64::new(1_u64).unwrap())
+        )
+    }
+    #[test]
+    fn three_u32_test() {
+        assert_eq!(
+            Into::<Fraction>::into(3_u32),
+            Fraction::new(3, NonZeroU64::new(1_u64).unwrap())
+        )
+    }
+    #[test]
+    fn three_u64_test() {
+        assert_eq!(
+            Into::<Fraction>::into(3_u64),
+            Fraction::new(3, NonZeroU64::new(1_u64).unwrap())
+        )
+    }
+
+
+    #[test]
+    fn three_i8_test() {
+        assert_eq!(
+            Into::<Fraction>::into(3_i8),
+            Fraction::new(3, NonZeroU64::new(1_u64).unwrap())
+        )
+    }
+    #[test]
+    fn three_i16_test() {
+        assert_eq!(
+            Into::<Fraction>::into(3_i16),
+            Fraction::new(3, NonZeroU64::new(1_u64).unwrap())
+        )
+    }
+    #[test]
+    fn three_i32_test() {
+        assert_eq!(
+            Into::<Fraction>::into(3_i32),
+            Fraction::new(3, NonZeroU64::new(1_u64).unwrap())
+        )
+    }
+    #[test]
+    fn three_i64_test() {
+        assert_eq!(
+            Into::<Fraction>::into(3_i64),
+            Fraction::new(3, NonZeroU64::new(1_u64).unwrap())
+        )
+    }
+
+
+    #[test]
+    fn neg_three_i8_test() {
+        assert_eq!(
+            Into::<Fraction>::into(-3_i8),
+            Fraction::new_neg(3, NonZeroU64::new(1_u64).unwrap())
+        )
+    }
+    #[test]
+    fn neg_three_i16_test() {
+        assert_eq!(
+            Into::<Fraction>::into(-3_i16),
+            Fraction::new_neg(3, NonZeroU64::new(1_u64).unwrap())
+        )
+    }
+    #[test]
+    fn neg_three_i32_test() {
+        assert_eq!(
+            Into::<Fraction>::into(-3_i32),
+            Fraction::new_neg(3, NonZeroU64::new(1_u64).unwrap())
+        )
+    }
+    #[test]
+    fn neg_three_i64_test() {
+        assert_eq!(
+            Into::<Fraction>::into(-3_i64),
+            Fraction::new_neg(3, NonZeroU64::new(1_u64).unwrap())
+        )
+    }
+}
