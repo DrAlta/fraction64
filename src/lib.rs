@@ -1,7 +1,9 @@
 
 mod abs;
 mod add;
+#[cfg(feature = "trig")]
 mod atan;
+#[cfg(feature = "trig")]
 mod atan2;
 mod consts;
 mod display;
@@ -12,6 +14,8 @@ mod mul;
 mod neg;
 mod ord;
 mod partial_eq;
+mod pow;
+mod powi;
 mod rem;
 mod sqrt;
 mod sub;
@@ -143,4 +147,13 @@ fn convert_fraction(mut numer: u128, mut denom: u128) -> (u64, u64) {
     } else {
          (numer as u64, denom as u64)
     }
+}
+
+fn u128_to_fraction(sign: Sign, numer: u128, denom: u128) -> Fraction {
+    let (numer, denom) = convert_fraction(numer, denom);
+    Fraction {
+        sign,
+        numer,
+        denom: NonZeroU64::new(denom).expect("we got zero for the demon "),
+    }.reduce_consuming()
 }

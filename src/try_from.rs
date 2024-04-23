@@ -1,8 +1,6 @@
-use std::num::NonZeroU64;
-
 use num_traits::Float;
 //use qol::OkOr;
-use crate::{convert_fraction, Fraction, Sign};
+use crate::{u128_to_fraction, Fraction, Sign};
 
 
 impl TryFrom<f32> for Fraction {
@@ -44,13 +42,7 @@ fn float_to_fraction_direct_from_mantissa_and_exponent<F: Float>(value: F) -> Op
         (2_u128.checked_pow(exponent.unsigned_abs() as u32)?, 1)
     };
     let mantissa = mantissa as u128;
-    let (numer, denom) = convert_fraction(mantissa * radix_denom, radix_numer);
-    let ret = Fraction {
-        sign: new_sign,
-        numer,
-        denom: NonZeroU64::new(denom)?,
-    }.reduce_consuming();
-    Some(ret)
+    Some(u128_to_fraction(new_sign, mantissa * radix_denom, radix_numer))
 }
 
 #[cfg(test)]
