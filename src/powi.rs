@@ -1,21 +1,18 @@
 use crate::{u128_to_fraction, Fraction};
 
 impl Fraction{
-    pub fn powi(&self, n: i32) -> Self {
-        if n == 0 {
+    pub fn powi(&self, p: i32) -> Self {
+        if p == 0 {
             return Fraction::ONE;
         }
 
-        let (numer, denom) = if n < 0 {
-            (
-                (self.denom.get() as u128).checked_pow(n.unsigned_abs()).expect("the new numer over flowed"),
-                (self.numer as u128).checked_pow(n.unsigned_abs()).expect("the new denom over flowed"),
-            )
+        let n = (self.numer as u128).checked_pow(p.unsigned_abs()).expect("the numen over flowed");
+        let d = (self.denom.get() as u128).checked_pow(p.unsigned_abs()).expect("the demon over flowed");
+
+        let (numer, denom) = if p < 0 {
+            ( d, n, )
         } else {
-            (
-                (self.numer as u128).checked_pow(n.unsigned_abs()).expect("the new numer over flowed"),
-                (self.denom.get() as u128).checked_pow(n.unsigned_abs()).expect("the new denom over flowed"),
-            )
+            ( n, d,)
         };
         u128_to_fraction(crate::Sign::Positive, numer, denom)
     }
