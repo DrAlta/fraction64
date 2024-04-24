@@ -17,6 +17,7 @@ impl Fraction {// 18_446_744_073_709_551_615
     pub const FOUR_THIRDS: Fraction = unsafe {Fraction::new(4, std::num::NonZeroU64::new_unchecked( 3))};
     pub const THREE: Self = unsafe {Fraction{sign: Sign::Positive, numer: 3_u64, denom: NonZeroU64::new_unchecked(1_u64)}};
     pub const FOUR: Self = unsafe {Fraction{sign: Sign::Positive, numer: 4_u64, denom: NonZeroU64::new_unchecked(1_u64)}};
+    pub const SIX: Self = unsafe {Fraction{sign: Sign::Positive, numer: 6_u64, denom: NonZeroU64::new_unchecked(1_u64)}};
     
     pub const E: Self = unsafe {Fraction{sign: Sign::Positive, numer: 5_739_439_214_861_417_731_u64, denom: NonZeroU64::new_unchecked(2_111_421_691_000_680_031_u64)}};
     pub const FRAC_2_PI: Self = Self::TAU;
