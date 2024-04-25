@@ -14,8 +14,8 @@ impl std::ops::Rem for &Fraction {
         let common_denom = self_denom_u128 * other_denom_u128;
 
         let new_self_numer= self.numer as u128 * other_denom_u128;
-        let new_other_numer = other.numer as u128 * other_denom_u128;
-        let rem_numer_u128 = (new_self_numer + new_other_numer) & common_denom;
+        let new_other_numer = other.numer as u128 * self_denom_u128;
+        let rem_numer_u128 = new_self_numer % new_other_numer;
 
         let (numer, denom) = convert_fraction(rem_numer_u128, common_denom);
 
@@ -48,5 +48,18 @@ impl std::ops::Rem<Fraction> for &Fraction {
 
     fn rem(self, other: Fraction) -> Fraction {
         self % &other
+    }
+}
+
+#[cfg(test)]
+mod tests {
+
+    use crate::Fraction;
+    #[test]
+    fn seven_mod_four(){
+        assert_eq!(
+            Fraction::from((7,1)) % Fraction::FOUR,
+            Fraction::THREE
+        )
     }
 }
