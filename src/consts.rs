@@ -28,4 +28,8 @@ impl Fraction {// 18_446_744_073_709_551_615
     pub const PI: Self = unsafe {Fraction{sign: Sign::Positive, numer: 11_146_408, denom:  NonZeroU64::new_unchecked(364913)}};
     pub const SQRT_2: Self = unsafe {Fraction{sign: Sign::Positive, numer: 367_296_043_199, denom:  NonZeroU64::new_unchecked(259_717_522_849)}};
     pub const TAU: Self = unsafe {Fraction{sign: Sign::Positive, numer: 2292816, denom: NonZeroU64::new_unchecked(364913)}};
+
+    pub const MAX: Self = unsafe {Fraction{sign: Sign::Positive, numer: std::u64::MAX, denom: NonZeroU64::new_unchecked(1)}};
+    pub const MIN: Self = unsafe {Fraction{sign: Sign::Negative, numer: std::u64::MAX, denom: NonZeroU64::new_unchecked(1)}};
+
 }
