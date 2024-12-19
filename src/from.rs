@@ -1,6 +1,13 @@
 use std::num::NonZeroU64;
 
 use crate::{Fraction, Sign};
+
+impl From<&Fraction> for Fraction {
+    fn from(value: &Fraction) -> Self {
+        value.clone()
+    }
+}
+
 ///////
 /// unsigned intergers
 impl From<u8> for Fraction {

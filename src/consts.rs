@@ -2,6 +2,10 @@ use std::num::NonZeroU64;
 
 use super::{Fraction, Sign};
 impl Fraction {// 18_446_744_073_709_551_615
+    pub const NEG_TEN: Self = unsafe {Fraction{sign: Sign::Negative, numer: 10_u64, denom: NonZeroU64::new_unchecked(1_u64)}};
+    pub const NEG_NINE: Self = unsafe {Fraction{sign: Sign::Negative, numer: 9_u64, denom: NonZeroU64::new_unchecked(1_u64)}};
+    pub const NEG_EIGHT: Self = unsafe {Fraction{sign: Sign::Negative, numer: 8_u64, denom: NonZeroU64::new_unchecked(1_u64)}};
+    pub const NEG_SEVEN: Self = unsafe {Fraction{sign: Sign::Negative, numer: 7_u64, denom: NonZeroU64::new_unchecked(1_u64)}};
     pub const NEG_SIX: Self = unsafe {Fraction{sign: Sign::Negative, numer: 6_u64, denom: NonZeroU64::new_unchecked(1_u64)}};
     pub const NEG_FIVE: Self = unsafe {Fraction{sign: Sign::Negative, numer: 5_u64, denom: NonZeroU64::new_unchecked(1_u64)}};
     pub const NEG_FOUR: Self = unsafe {Fraction{sign: Sign::Negative, numer: 4_u64, denom: NonZeroU64::new_unchecked(1_u64)}};
@@ -23,6 +27,10 @@ impl Fraction {// 18_446_744_073_709_551_615
     pub const FOUR: Self = unsafe {Fraction{sign: Sign::Positive, numer: 4_u64, denom: NonZeroU64::new_unchecked(1_u64)}};
     pub const FIVE: Self = unsafe {Fraction{sign: Sign::Positive, numer: 5_u64, denom: NonZeroU64::new_unchecked(1_u64)}};
     pub const SIX: Self = unsafe {Fraction{sign: Sign::Positive, numer: 6_u64, denom: NonZeroU64::new_unchecked(1_u64)}};
+    pub const SEVEN: Self = unsafe {Fraction{sign: Sign::Positive, numer: 7_u64, denom: NonZeroU64::new_unchecked(1_u64)}};
+    pub const EIGHT: Self = unsafe {Fraction{sign: Sign::Positive, numer: 8_u64, denom: NonZeroU64::new_unchecked(1_u64)}};
+    pub const NINE: Self = unsafe {Fraction{sign: Sign::Positive, numer: 9_u64, denom: NonZeroU64::new_unchecked(1_u64)}};
+    pub const TEN: Self = unsafe {Fraction{sign: Sign::Positive, numer: 10_u64, denom: NonZeroU64::new_unchecked(1_u64)}};
     
     pub const E: Self = unsafe {Fraction{sign: Sign::Positive, numer: 5_739_439_214_861_417_731_u64, denom: NonZeroU64::new_unchecked(2_111_421_691_000_680_031_u64)}};
     pub const FRAC_2_PI: Self = Self::TAU;
