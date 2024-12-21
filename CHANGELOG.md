@@ -1,6 +1,10 @@
+2024-12-20 v:0.1.21
+
+- added  Into<u8>, Into<u16>, Into<u32>, Into<u64>, Into<u128>, Into<i8>, Into<i16>, Into<i32>, Into<i64>, Into<i128> for Fraction
+
 2024-12-20 v:0.1.20
 
-- added  Into<u8>, Into<u16>, Into<u32>, Into<u64>, Into<u128>, Into<i8>, Into<i16>, Into<i32>, Into<i64>, Into<i128>, 
+- added  Into<u8>, Into<u16>, Into<u32>, Into<u64>, Into<u128>, Into<i8>, Into<i16>, Into<i32>, Into<i64>, Into<i128> for &Fraction 
 
 2024-12-19 v:0.1.19
 

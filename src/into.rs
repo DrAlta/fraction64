@@ -1,5 +1,56 @@
 use crate::Fraction;
 
+impl Into<u8> for Fraction {
+    fn into(self) -> u8 {
+        (&self).into()
+    }
+}
+impl Into<u16> for Fraction {
+    fn into(self) -> u16 {
+        (&self).into()
+    }
+}
+impl Into<u32> for Fraction {
+    fn into(self) -> u32 {
+        (&self).into()
+    }
+}
+impl Into<u64> for Fraction {
+    fn into(self) -> u64 {
+        (&self).into()
+    }
+}
+impl Into<u128> for Fraction {
+    fn into(self) -> u128 {
+        (&self).into()
+    }
+}
+impl Into<i8> for Fraction {
+    fn into(self) -> i8 {
+        (&self).into()
+    }
+}
+impl Into<i16> for Fraction {
+    fn into(self) -> i16 {
+        (&self).into()
+    }
+}
+impl Into<i32> for Fraction {
+    fn into(self) -> i32 {
+        (&self).into()
+    }
+}
+impl Into<i64> for Fraction {
+    fn into(self) -> i64 {
+        (&self).into()
+    }
+}
+impl Into<i128> for Fraction {
+    fn into(self) -> i128 {
+        (&self).into()
+    }
+}
+
 impl Into<u8> for &Fraction {
     fn into(self) -> u8 {
         assert_eq!(self.sign, crate::Sign::Positive);
