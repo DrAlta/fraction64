@@ -13,7 +13,7 @@ impl std::ops::Rem for &Fraction {
 
         let common_denom = self_denom_u128 * other_denom_u128;
 
-        let new_self_numer= self.numer as u128 * other_denom_u128;
+        let new_self_numer = self.numer as u128 * other_denom_u128;
         let new_other_numer = other.numer as u128 * self_denom_u128;
         let rem_numer_u128 = new_self_numer % new_other_numer;
 
@@ -24,8 +24,11 @@ impl std::ops::Rem for &Fraction {
         } else {
             Sign::Negative
         };
-        Fraction { sign, numer, denom: NonZeroU64::new(denom).unwrap() }
-
+        Fraction {
+            sign,
+            numer,
+            denom: NonZeroU64::new(denom).unwrap(),
+        }
     }
 }
 
@@ -56,10 +59,7 @@ mod tests {
 
     use crate::Fraction;
     #[test]
-    fn seven_mod_four(){
-        assert_eq!(
-            Fraction::from((7,1)) % Fraction::FOUR,
-            Fraction::THREE
-        )
+    fn seven_mod_four() {
+        assert_eq!(Fraction::from((7, 1)) % Fraction::FOUR, Fraction::THREE)
     }
 }

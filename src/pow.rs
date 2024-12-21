@@ -17,10 +17,9 @@ impl Fraction {
         } else {
             (de, nu)
         };
-        u128_to_fraction( self.sign.clone(), numer, denom)
+        u128_to_fraction(self.sign.clone(), numer, denom)
     }
 }
-
 
 #[cfg(test)]
 mod tests {
@@ -29,18 +28,12 @@ mod tests {
     use crate::Fraction;
     #[test]
     fn three_to_the_three() {
-        let value: Fraction = Fraction::THREE.pow(&Fraction::THREE); 
-        assert_eq!(
-            value,
-            Fraction::new(27, NonZeroU64::new(1).unwrap())
-        );
+        let value: Fraction = Fraction::THREE.pow(&Fraction::THREE);
+        assert_eq!(value, Fraction::new(27, NonZeroU64::new(1).unwrap()));
     }
     #[test]
     fn three_to_the_neg_two() {
-        let value: Fraction = Fraction::THREE.pow(&Fraction::NEG_TWO); 
-        assert_eq!(
-            value,
-            Fraction::new(1, NonZeroU64::new(9).unwrap())
-        );
+        let value: Fraction = Fraction::THREE.pow(&Fraction::NEG_TWO);
+        assert_eq!(value, Fraction::new(1, NonZeroU64::new(9).unwrap()));
     }
 }

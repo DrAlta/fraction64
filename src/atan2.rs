@@ -1,6 +1,6 @@
-//! based on https://yal.cc/fast-atan2/  which is based on 
-//! https://nghiaho.com/?p=997 which is based on 
-//! “Efficient approximations for the arctangent function”, 
+//! based on https://yal.cc/fast-atan2/  which is based on
+//! https://nghiaho.com/?p=997 which is based on
+//! “Efficient approximations for the arctangent function”,
 //! Rajan, S. Sichun Wang Inkol, R. Joyal, A., May 2006
 
 use super::Fraction;
@@ -8,37 +8,19 @@ use super::Fraction;
 impl Fraction {
     pub fn atan2(&self, x: &Self) -> Self {
         let y = self;
-     
-        match(x >= &Self::ZERO, y >= &Self::ZERO, y < x) {
-            (true, true, true) => {
-                (x / y).atan()
-            },
-            (true, true, false) => {
-                Self::FRAC_PI_2 - (x /y).atan()
-            },
-            (true, false, true) => {
-                (y / x).atan()
-            },
-            (true, false, false) => {
-                -Self::FRAC_PI_2 - (x /y).atan()
-            },
-            (false, true, true) => {
-                (y / x).atan() + Self::PI
-            },
-            (false, true, false) => {
-                Self::FRAC_PI_2 - (x / y).atan()
-            },
-            (false, false, true) => {
-                (y / x).atan() - Self::PI
-            },
-            (false, false, false) => {
-                -Self::FRAC_PI_2 - (x / y).atan()
-            },
+
+        match (x >= &Self::ZERO, y >= &Self::ZERO, y < x) {
+            (true, true, true) => (x / y).atan(),
+            (true, true, false) => Self::FRAC_PI_2 - (x / y).atan(),
+            (true, false, true) => (y / x).atan(),
+            (true, false, false) => -Self::FRAC_PI_2 - (x / y).atan(),
+            (false, true, true) => (y / x).atan() + Self::PI,
+            (false, true, false) => Self::FRAC_PI_2 - (x / y).atan(),
+            (false, false, true) => (y / x).atan() - Self::PI,
+            (false, false, false) => -Self::FRAC_PI_2 - (x / y).atan(),
         }
     }
 }
-
-
 
 /*
 pub fn test(){
@@ -62,7 +44,7 @@ pub fn test(){
     let atan2l = y2l.atan2(x2l);
 
     let atan1a: Fraction = y1a.atan2(x1a);
-    let atan2a: Fraction = y2a.atan2(x2a);    
+    let atan2a: Fraction = y2a.atan2(x2a);
 
 }
 */
