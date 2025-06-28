@@ -79,93 +79,49 @@ impl Add for &Fraction {
             .reduce_consuming()
         } else {
             // If denominators are different, find a common denominator
-
-            match (
-                self.denom.checked_mul(other.denom),
-                self.numer.checked_mul(other.denom.get()),
-                other.numer.checked_mul(self.denom.get()),
-            ) {
-                (Some(common_denom), Some(new_numer_self), Some(new_numer_other)) => {
-                    let (new_sign, new_numer) = match (&self.sign, other.sign.clone()) {
-                        (Sign::Positive, Sign::Positive) => {
-                            (Sign::Positive, new_numer_self + new_numer_other)
-                        }
-                        (Sign::Positive, Sign::Negative) => {
-                            if new_numer_self >= new_numer_other {
-                                (Sign::Positive, new_numer_self - new_numer_other)
-                            } else {
-                                (Sign::Negative, new_numer_other - new_numer_self)
-                            }
-                        }
-                        (Sign::Negative, Sign::Positive) => {
-                            if new_numer_other >= new_numer_self {
-                                (Sign::Positive, new_numer_other - new_numer_self)
-                            } else {
-                                (Sign::Negative, new_numer_self - new_numer_other)
-                            }
-                        }
-                        (Sign::Negative, Sign::Negative) => {
-                            (Sign::Negative, new_numer_self + new_numer_other)
-                        }
-                    };
-
-                    Fraction {
-                        sign: new_sign,
-                        numer: new_numer,
-                        denom: common_denom,
+            let common_denom = self.denom.get() as u128 * other.denom.get() as u128;
+            let new_numer_self = self.numer as u128 * other.denom.get() as u128;
+            let new_numer_other = other.numer as u128 * self.denom.get() as u128;
+            let new_numer = match (&self.sign, other.sign.clone()) {
+                (Sign::Positive, Sign::Positive) => new_numer_self + new_numer_other,
+                (Sign::Positive, Sign::Negative) => {
+                    if new_numer_self >= new_numer_other {
+                        new_numer_self - new_numer_other
+                    } else {
+                        let (numer, denom) =
+                            convert_fraction(new_numer_other - new_numer_self, common_denom);
+                        return Fraction {
+                            sign: Sign::Negative,
+                            numer,
+                            denom: NonZeroU64::new(denom).unwrap(),
+                        };
                     }
-                    .reduce_consuming()
                 }
-                (_, _, _) => {
-                    let common_denom = self.denom.get() as u128 * other.denom.get() as u128;
-                    let new_numer_self = self.numer as u128 * other.denom.get() as u128;
-                    let new_numer_other = other.numer as u128 * self.denom.get() as u128;
-                    let new_numer = match (&self.sign, other.sign.clone()) {
-                        (Sign::Positive, Sign::Positive) => new_numer_self + new_numer_other,
-                        (Sign::Positive, Sign::Negative) => {
-                            if new_numer_self >= new_numer_other {
-                                new_numer_self - new_numer_other
-                            } else {
-                                let (numer, denom) = convert_fraction(
-                                    new_numer_other - new_numer_self,
-                                    common_denom,
-                                );
-                                return Fraction {
-                                    sign: Sign::Negative,
-                                    numer,
-                                    denom: NonZeroU64::new(denom).unwrap(),
-                                };
-                            }
-                        }
-                        (Sign::Negative, Sign::Positive) => {
-                            if new_numer_other >= new_numer_self {
-                                logy!("debug", "new_num_other >= new_num_self");
-                                new_numer_other - new_numer_self
-                            } else {
-                                logy!("debug", "not (new_num_other >= new_num_self)");
-                                let (numer, denom) = convert_fraction(
-                                    new_numer_self - new_numer_other,
-                                    common_denom,
-                                );
-                                return Fraction {
-                                    sign: Sign::Negative,
-                                    numer: numer,
-                                    denom: NonZeroU64::new(denom).unwrap(),
-                                };
-                            }
-                        }
-                        (Sign::Negative, Sign::Negative) => new_numer_self + new_numer_other,
-                    };
-                    let (numer, denom) = convert_fraction(new_numer, common_denom);
-
-                    Fraction {
-                        sign: self.sign.clone(),
-                        numer,
-                        denom: NonZeroU64::new(denom).unwrap(),
+                (Sign::Negative, Sign::Positive) => {
+                    if new_numer_other >= new_numer_self {
+                        logy!("debug", "new_num_other >= new_num_self");
+                        new_numer_other - new_numer_self
+                    } else {
+                        logy!("debug", "not (new_num_other >= new_num_self)");
+                        let (numer, denom) =
+                            convert_fraction(new_numer_self - new_numer_other, common_denom);
+                        return Fraction {
+                            sign: Sign::Negative,
+                            numer: numer,
+                            denom: NonZeroU64::new(denom).unwrap(),
+                        };
                     }
-                    .reduce_consuming()
                 }
+                (Sign::Negative, Sign::Negative) => new_numer_self + new_numer_other,
+            };
+            let (numer, denom) = convert_fraction(new_numer, common_denom);
+
+            Fraction {
+                sign: self.sign.clone(),
+                numer,
+                denom: NonZeroU64::new(denom).unwrap(),
             }
+            .reduce_consuming()
         }
     }
 

@@ -1,3 +1,7 @@
+2025-06-28 v:0.1.22
+
+- changed add to hopefully prevent the numberater from over flowing
+
 2024-12-20 v:0.1.21
 
 - added  Into<u8>, Into<u16>, Into<u32>, Into<u64>, Into<u128>, Into<i8>, Into<i16>, Into<i32>, Into<i64>, Into<i128> for Fraction
