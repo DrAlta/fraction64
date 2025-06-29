@@ -39,4 +39,19 @@ mod tests {
         };
         assert_eq!(pos, neg)
     }
+
+    #[test]
+    fn one() {
+        let a = Fraction::ONE;
+        let b = Fraction::ONE;
+        assert_eq!(a, b)
+    }
+
+    #[test]
+    fn three() {
+        let a = Fraction::THREE;
+        let b = Fraction::THREE;
+        assert_eq!(a, b)
+    }
+
 }

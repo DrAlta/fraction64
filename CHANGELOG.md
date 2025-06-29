@@ -1,3 +1,7 @@
+2025-06-29 v:0.1.23
+
+- fixed a bug in add()
+
 2025-06-28 v:0.1.22
 
 - changed add to hopefully prevent the numberater from over flowing

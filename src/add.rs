@@ -8,7 +8,7 @@ impl Add for &Fraction {
     type Output = Fraction;
     fn add(self, other: Self) -> Self::Output {
         if self.denom == other.denom {
-            logy!("debug", "[{}]denom's the same");
+            logy!("debug", "denom's the same");
             // If denominators are the same, just add numerators
             let (new_sign, new_numer) = match (&self.sign, &other.sign) {
                 (Sign::Positive, Sign::Positive) => {
@@ -98,11 +98,25 @@ impl Add for &Fraction {
                     }
                 }
                 (Sign::Negative, Sign::Positive) => {
+                    ///////////////////////////////////////////
                     if new_numer_other >= new_numer_self {
-                        logy!("debug", "new_num_other >= new_num_self");
-                        new_numer_other - new_numer_self
+                        logy!(
+                            "debug",
+                            "other number{} >= self.number{}",
+                            new_numer_other,
+                            new_numer_self
+                        );
+
+                        //(Sign::Positive, other.numer - self.numer)
+                        let (numer, denom) =
+                            convert_fraction( new_numer_other - new_numer_self, common_denom);
+                        return Fraction {
+                            sign: Sign::Positive,
+                            numer: numer,
+                            denom: NonZeroU64::new(denom).unwrap(),
+                        };
                     } else {
-                        logy!("debug", "not (new_num_other >= new_num_self)");
+                        //(Sign::Negative, self.numer - other.numer)
                         let (numer, denom) =
                             convert_fraction(new_numer_self - new_numer_other, common_denom);
                         return Fraction {
@@ -110,7 +124,7 @@ impl Add for &Fraction {
                             numer: numer,
                             denom: NonZeroU64::new(denom).unwrap(),
                         };
-                    }
+                    };
                 }
                 (Sign::Negative, Sign::Negative) => new_numer_self + new_numer_other,
             };
